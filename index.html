@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora de Rescisão Trabalhista</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <form>
+                <div class="titulo-subtitulo">
+                    <h1 class="titulo">Calculadora de Rescisão Trabalhista</h1>
+                    <h3 class="subtitulo">Preencha os campos abaixo para calcular os valores da rescisão contratual</h3>
+                </div>
+                <h2 class="titulos-sessao">Dados do Contrato</h2>
+                <section class="form-sessao">
+                    <div class="form-grid">
+
+                        <div class="campos campo-dados-contrato">
+                            <label class="label-salario" for="inSalarioBruto">Salário bruto</label>
+                            <input type="text" class="salario-bruto" id="inSalarioBruto" placeholder="0,00">
+                            <span class="prefixo">R$</span>
+                        </div>
+
+                        <div class="campos">
+                            <label for="inDataAdmissao">Data de admissão</label>
+                            <input type="date" class="data-admissao" id="inDataAdmissao">
+                        </div>
+
+                        <div class="campos">
+                            <label for="inDepedentes">Número de depedentes</label>
+                            <input type="number" id="inDepedentes" placeholder="0">
+                        </div>
+
+                    </div><!--FIM - form-grid 01-->
+
+                </section> <!--FIM - form-sessao 01-->
+
+                <h2 class="titulos-sessao">Dados do Desligamento</h2>
+                <section class="form-sessao">
+                    <div class="form-grid">
+
+                        <div class="campos">
+                            <label for="inDataDesligamento">Data de desligamento</label>
+                            <input type="date" class="data-desligamento" id="inDataDesligamento">
+                        </div>
+
+                        <div class="campos">
+                            <label for="inDiasTrabalhados">Dias trabalhados no mês de desligamento</label>
+                            <input type="number" placeholder="0">
+                        </div>
+
+                        <div class="campos">
+                            <label for="inFormaDesligamento">Forma de desligamento</label>
+                            <select name="inFormaDesligamento" id="inFormaDesligamento" class="forma-desligamento">
+                                <option value="" disabled selected hidden>Selecione</option>
+                                <option value="semJustaCausa">Demissão sem justa causa</option>
+                                <option value="comJustaCausa">Demissão com justa causa</option>
+                                <option value="pedidoDemissao">Pedido de demissão</option>
+                                <option value="acordoMutuo">Acordo mútuo</option>
+                                <option value="tempoDeterminado">Fim de contrato de determinado</option>
+                            </select> <!--FIM - inFormaDesligamento-->
+                        </div>
+
+                        <div class="campos">
+                            <label for="avisoPrevio">Aviso prévio</label>
+                            <select name="avisoPrevio" id="avisoPrevio">
+                                <option value="" disabled selected hidden>Selecione</option>
+                                <option value="trabalhado">Trabalhado</option>
+                                <option value="indenizado">Indenizado</option>
+                                <option value="Descontado">Descontado</option>
+                            </select>
+                        </div>
+
+                    </div> <!--FIM - form-grid 02-->
+
+                </section> <!--FIM - form-sessao 02-->
+
+                <h2 class="titulos-sessao">Informações Adicionais</h2>
+                <section class="form-sessao">
+                    <div class="form-grid">
+
+                        <div class="campos">
+                            <legend>Possuí férias vencidas?</legend>
+                            <div id="campoFerias">
+                                <input type="radio" name="ferias" id="sim" value="sim">
+                                <label for="sim">Sim</label>
+                                <input type="radio" name="ferias" id="nao" value="nao">
+                                <label for="nao">Não</label>
+                            </div>
+
+                        </div>
+
+                    </div> <!--FIM - form-grid 03-->
+
+                </section> <!--FIM - form-sessao 03-->
+
+                <div class="botoes" id="formBotoes">
+                    <button type="submit" class="btn btn-calcular">Calcular</button>
+                    <button type="reset" class="btn btn-limpar">Limpar</button>
+                </div>
+            </form>
+
+        </section> <!--FIM - Sessão 01-->
+
+        <section class="Sessao-02-resultado">
+
+            <div class="resultado-principal">
+
+                <h2 class="titulo">Resultado do Cálculo</h2>
+
+                <div class="valores-principais">
+
+                    <div class="resultados">
+                        <legend>Verbas rescisórias:</legend>
+                        <p class="valores-principais aDireita" id="outVerbas">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Descontos:</legend>
+                        <p class="valores-principais aDireita" id="outDescontos">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Total:</legend>
+                        <p class="valores-principais aDireita" id="outTotal">0,00</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <h2 class="titulo">Resultado detalhado</h2>
+            <div class="resultado-detalhado">
+
+                <div class="valores-rescisorios">
+
+                    <h3>Valores a receber</h3>
+
+                    <div class="resultados">
+                        <legend>Saldo de salário:<br><span id="outDiaSalario"></span></legend>
+                        <p class="aDireita" id="outSalario aDireita">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Férias proporcionais:<br><span id="outMesesProp"></span></legend>
+                        <p class="aDireita" id="outFeriasProp">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>1/3 de férias:</legend>
+                        <p class="aDireita" id="outUmTercoFerias">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>13º proporcional:<br><span id="outMesesDecimo"></span></legend>
+                        <p class="aDireita" id="outDecimoProp">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Aviso prévio:</legend>
+                        <p class="aDireita" id="outAvisoPrevio">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Total:</legend>
+                        <p class="aDireita" id="outTotalRescisorios"></p>
+                    </div>
+
+                </div> <!--FIM de clas="valores-rescisorios"-->
+
+                
+                <div class="valores-descontos">
+
+                    <h3>Descontos</h3>
+
+                    <div class="resultados">
+                        <legend>INSS:</legend>
+                        <p class="aDireita" id="outInss">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>INSS 13°:</legend>
+                        <p class="aDireita" id="outInss13">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>IRRF:</legend>
+                        <p class="aDireita" id="outIrrf">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Total:</legend>
+                        <p class="aDireita" id="outTotalDescontos">0,00</p>
+                    </div>
+
+                </div> <!--FIM de class="valores-descontos"-->
+
+                <div class="valores-fgts">
+
+                    <h3>FGTS</h3>
+
+                    <div class="resultados">
+                        <legend>Depositado:<br><span class="outMesesFgts"></span></legend>
+                        <p class="aDireita" id="outDepositosFgts">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Saldo salário:</legend>
+                        <p class="aDireita" id="outFgtsSalario">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>13° proporcional:</legend>
+                        <p class="aDireita" id="outFgtsProp">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Multa 40%:</legend>
+                        <p class="aDireita" id="outMulta40">0,00</p>
+                    </div>
+
+                    <div class="resultados">
+                        <legend>Total:</legend>
+                        <p class="aDireita" id="outTotalFgts">0,00</p>
+                    </div>
+
+                </div><!--FIM de class="valores-fgts"-->
+            </div>
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
