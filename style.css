@@ -231,11 +231,9 @@ select option {
 
 .resultados{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 2fr 1fr;
     margin-bottom: 1.5rem;
     border-bottom: #e0e0e0 1px solid;
-    
-
 }
 
 .Sessao-02-resultado .titulo{
