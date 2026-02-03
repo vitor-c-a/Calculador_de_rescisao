@@ -21,41 +21,36 @@
                     <div class="form-grid">
 
                         <div class="campos campo-dados-contrato">
-                            <label class="label-salario" for="inSalarioBruto">Salário bruto</label>
-                            <input type="number" class="salario-bruto" id="inSalarioBruto" placeholder="0,00">
+                            <label class="label-salario" for="inSalarioBruto">Salário bruto <span class="asterisco">*</span></label>
+                            <input type="number" class="salario-bruto entradas " id="inSalarioBruto" placeholder="0,00">
                             <span class="prefixo">R$</span>
                         </div>
 
                         <div class="campos">
-                            <label for="inDataAdmissao">Data de admissão</label>
-                            <input type="date" class="data-admissao" id="inDataAdmissao">
+                            <label for="inDataAdmissao">Data de admissão <span class="asterisco">*</span></label>
+                            <input type="date" class="data-admissao entradas" id="inDataAdmissao">
                         </div>
 
                         <div class="campos">
                             <label for="inDependentes">Número de depedentes</label>
-                            <input type="number" id="inDependentes" >
+                            <input type="number" class="depedentes entradas" id="inDependentes" >
                         </div>
 
                     </div><!--FIM - form-grid 01-->
 
                 </section> <!--FIM - form-sessao 01-->
 
-                <h2 class="titulos-sessao">Dados do Desligamento</h2>
+                <h2 class="titulos-sessao">Dados do Desligamento <span class="asterisco">*</span></h2>
                 <section class="form-sessao">
                     <div class="form-grid">
 
                         <div class="campos">
-                            <label for="inDataDesligamento">Data de desligamento</label>
-                            <input type="date" class="data-desligamento" id="inDataDesligamento">
+                            <label for="inDataDesligamento">Data de desligamento <span class="asterisco">*</span></label>
+                            <input type="date" class="data-desligamento entradas" id="inDataDesligamento">
                         </div>
 
                         <div class="campos">
-                            <label for="inDiasTrabalhados">Dias trabalhados no mês de desligamento</label>
-                            <input type="number" placeholder="0">
-                        </div>
-
-                        <div class="campos">
-                            <label for="inFormaDesligamento">Forma de desligamento</label>
+                            <label for="inFormaDesligamento">Forma de desligamento <span class="asterisco">*</span></label>
                             <select name="inFormaDesligamento" id="inFormaDesligamento" class="forma-desligamento">
                                 <option value="" disabled selected hidden>Selecione</option>
                                 <option value="semJustaCausa">Demissão sem justa causa ou rescisão indireta</option>
@@ -67,8 +62,8 @@
                         </div>
 
                         <div class="campos">
-                            <label for="inAvisoPrevio">Aviso prévio</label>
-                            <select name="inAvisoPrevio" id="inAvisoPrevio">
+                            <label for="inAvisoPrevio">Aviso prévio <span class="asterisco">*</span></label>
+                            <select name="inAvisoPrevio"  id="inAvisoPrevio">
                                 <option value="" disabled selected hidden>Selecione</option>
                                 <option value="trabalhado">Trabalhado</option>
                                 <option value="indenizado">Indenizado</option>
@@ -104,7 +99,9 @@
                 <div class="botoes" id="formBotoes">
                     <button type="submit" class="btn btn-calcular">Calcular</button>
                     <button type="reset" class="btn btn-limpar">Limpar</button>
+                    <p class="msgErro">preencha todos os campos obrigatórios</p>
                 </div>
+                
             </form>
 
         </section> <!--FIM - Sessão 01-->

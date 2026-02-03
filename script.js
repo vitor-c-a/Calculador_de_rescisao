@@ -1,4 +1,15 @@
+/*Constantes de entradas >>>>>*/
 const form = document.querySelector("form");
+
+const inSalarioBruto = document.querySelector("#inSalarioBruto");
+const inDataAdmissao = document.querySelector("#inDataAdmissao");
+const inDependentes = document.querySelector("#inDependentes");
+
+const inDataDesligamento = document.querySelector("#inDataDesligamento");
+
+const inFormaDesligamento = document.querySelector("#inFormaDesligamento");
+const inAvisoPrevio = document.querySelector("#inAvisoPrevio");
+const inFerias = document.querySelector('input[name="inFerias"]:checked');
 
 /*Constantes de saida >>>>>*/
 const outVerbas = document.querySelector("#outVerbas");
@@ -31,33 +42,49 @@ const outFgtsProp = document.querySelector("#outFgtsProp");
 const outMulta40 = document.querySelector("#outMulta40");
 const outTotalFgts = document.querySelector("#outTotalFgts");
 
+const entradas = [
+  inSalarioBruto,
+  inDataAdmissao,
+  inDataDesligamento,
+  inFormaDesligamento,
+  inAvisoPrevio,
+];
 
+function validarEntradas() {
+  const entradasVazias = entradas.filter(
+    (entrada) => !entrada.value || entrada.value.trim() === "",
+  );
+
+  const msgErro = document.querySelector(".msgErro");
+
+  if (entradasVazias.length > 0) {
+    entradasVazias.forEach((input) => input.classList.add("erro"));
+    msgErro.style.display = "inline";
+    return false;
+  }
+
+  msgErro.style.display = "none";
+  return true;
+}
+
+function calcularRescisao() {
+  
+}
+
+entradas.forEach((input) => {
+  input.addEventListener("input", () => {
+    if (input.value.trim() !== "") {
+      input.classList.remove("erro");
+    }
+  });
+});
 
 form.addEventListener("submit", (e) => {
-
   e.preventDefault();
-        /*Entradas >>>>>*/
-
-  const inSalarioBruto = document.querySelector("#inSalarioBruto");
-  const inDataAdmissao = document.querySelector("#inDataAdmissao");
-  const inDependentes = document.querySelector("#inDependentes");
   
-  const inDataDesligamento = document.querySelector("#inDataDesligamento");
-  const inFormaDesligamento = document.querySelector("#inFormaDesligamento");
-  const inAvisoPrevio = document.querySelector("#inAvisoPrevio");
-  const inFerias = document.querySelector('input[name="inFerias"]:checked');
+  if(!validarEntradas()){
+    return
+  }
 
-  const entradas = [
 
-    inSalarioBruto,
-    inDataAdmissao,
-    inDependentes,
-    inDataDesligamento,
-    inFormaDesligamento,
-    inAvisoPrevio,
-  ];
-  const verificandoEntradas = entradas.every(entrada => entrada.value !== "");
-  
-
-  
 });

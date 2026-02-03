@@ -40,6 +40,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 1rem;
 }
 
 
@@ -106,13 +107,19 @@ label {
     font-weight: 500;
 }
 
-.campos input {
+.asterisco{
+    color: red;
+    font-size: 13px
+}
+
+.campos .entradas {
     border: none;
     background-color: rgb(240, 242, 244);
     border-radius: 10px;
     padding: 0.5rem;
     font-family: "Inter", sans-serif;
     color: #666666;
+    width:17rem;
 }
 
 .campo-dados-contrato {
@@ -129,13 +136,10 @@ label {
     color: #929191;
 }
 
-.campo-dados-contrato input {
+.campo-dados-contrato .entradas {
     padding-left: 37px;
 }
 
-#inDepedentes {
-    width: 12rem;
-}
 
 .campos select {
     border: none;
@@ -144,7 +148,7 @@ label {
     padding: 0.5rem;
     font-family: "Inter", sans-serif;
     color: #666666;
-
+    width:17rem;
 }
 
 select option {
@@ -161,6 +165,7 @@ select option {
     display: flex;
     gap: 3rem;
 }
+
 
 .botoes {
     display: flex;
@@ -246,4 +251,17 @@ select option {
 
 .Sessao-02-resultado legend{
     font-size: 1.1rem;
+}
+
+
+
+/*Sessão que muda depedenddo da interatividade:*/
+
+.msgErro{
+    color: red;
+    display: none;
+}
+
+.erro{
+    border: solid 2px red !important;
 }
