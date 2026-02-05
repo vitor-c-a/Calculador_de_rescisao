@@ -1,21 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    /* Importante para lidar com largura e altura */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Importante para lidar com largura e altura */
 }
 
 body {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: weight;
-    font-style: normal;
-    /*background-color: rgb(219, 230, 250);*/
-
-    
-    
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  /*background-color: rgb(219, 230, 250);*/
 }
 
 body::before {
@@ -33,235 +30,251 @@ body::before {
   z-index: -1;
 }
 
-
 main {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-
-                 /*Estilização do formulário*/
+/*Estilização do formulário*/
 
 form {
-    background-color: rgba(255, 255, 255, 1);
-    padding: 1.5rem; 
-    border-radius: 1rem;
-    width: 38rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 1);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  width: 38rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .titulo-subtitulo {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .titulo {
-    font-size: 1.4rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
 }
 
 .subtitulo {
-    font-size: 0.9rem;
-    font-weight: 300;
-    color: #7e7d7d;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #7e7d7d;
 }
 
 .form-sessao {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .titulos-sessao {
-    font-size: 1.05rem;
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px #ccc solid;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px #ccc solid;
 }
 
 .form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
-    margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .campos {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
-
 
 label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #000000;
-    margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #000000;
+  margin-bottom: 0.5rem;
 }
 
-.campos legend{
-    font-size: 0.9rem;
-    font-weight: 500;
+.campos legend {
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
-.asterisco{
-    color: red;
-    font-size: 13px
+.asterisco {
+  color: red;
+  font-size: 13px;
 }
 
 .campos .entradas {
-    border: none;
-    background-color: rgb(240, 242, 244);
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-family: "Inter", sans-serif;
-    color: #666666;
-    width:17rem;
+  border: none;
+  background-color: rgb(240, 242, 244);
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-family: "Inter", sans-serif;
+  color: #666666;
+  width: 17rem;
 }
 
 .campo-dados-contrato {
-    position: relative;
+  position: relative;
 }
 
 .prefixo {
-    position: absolute;
-    top: 31px;
-    left: 10px;
-    pointer-events: none;
-    font-family: "Inter", sans-serif;
-    font-weight: 300;
-    color: #929191;
+  position: absolute;
+  top: 31px;
+  left: 10px;
+  pointer-events: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  color: #929191;
 }
 
 .campo-dados-contrato .entradas {
-    padding-left: 37px;
+  padding-left: 37px;
 }
 
-
 .campos select {
-    border: none;
-    background-color: rgb(240, 242, 244);
-    border-radius: 10px;
-    padding: 0.5rem;
-    font-family: "Inter", sans-serif;
-    color: #666666;
-    width:17rem;
+  border: none;
+  background-color: rgb(240, 242, 244);
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-family: "Inter", sans-serif;
+  color: #666666;
+  width: 17rem;
 }
 
 select option {
-    color: #666666;
-
+  color: #666666;
 }
 
 .input-radio {
-    color: #fff;
-    background-color: #fff;
+  color: #fff;
+  background-color: #fff;
 }
 
 .campoFerias {
-    display: flex;
-    gap: 3rem;
+  display: flex;
+  gap: 3rem;
 }
 
-
 .botoes {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .btn {
-    width: 6.5em;
-    padding: 0.6rem 0.6rem;
-    border-radius: 0.5rem;
-    border: #494949;
-    font-weight: 540;
-    font-size: 0.9rem;
+  width: 6.5em;
+  padding: 0.6rem 0.6rem;
+  border-radius: 0.5rem;
+  border: #494949;
+  font-weight: 540;
+  font-size: 0.9rem;
 }
 
 .btn:active {
-    transform: scale(0.97);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .btn-calcular {
-    color: #fff;
-    background-color: rgb(21, 93, 252);
-    border: none;
+  color: #fff;
+  background-color: rgb(21, 93, 252);
+  border: none;
 }
 
 .btn-limpar {
-    background-color: #fff;
-    color: #000;
-    border: #666666 solid 1px;
+  background-color: #fff;
+  color: #000;
+  border: #666666 solid 1px;
 }
 
+/*Estilização do resultado exibido para o usuário*/
 
-                 /*Estilização do resultado exibido para o usuário*/
-
-
-
-
-.Sessao-02-resultado{
-    width: 60%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 1.5rem;
-    color: #fff;
-    background-color: rgb(255, 255, 255, 0.3);
-    padding: 1rem;
-    border-radius: 1rem;
-    margin-bottom: 1rem;
+.Sessao-02-resultado {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  color: #fff;
+  background-color: rgb(255, 255, 255, 0.3);
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
 
-.resultado-principal{
-    width: 38rem;
+.resultado-principal {
+  width: 38rem;
 }
 
-.resultado-detalhado{
-    display: flex;
-    gap: 2rem;
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
+.resultado-detalhado {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.resultado-detalhado h3{
-    margin-bottom: 1rem;
+.resultado-detalhado h3 {
+  margin-bottom: 1rem;
 }
 
-.resultados{
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    margin-bottom: 1.5rem;
-    border-bottom: #e0e0e0 1px solid;
+.resultados {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin-bottom: 1.5rem;
+  border-bottom: #e0e0e0 1px solid;
 }
 
-.Sessao-02-resultado .titulo{
-    font-weight: 700;
+.Sessao-02-resultado .titulo {
+  font-weight: 700;
 }
 
-.aDireita{
-    text-align: end;
+.aDireita {
+  text-align: end;
 }
 
-.Sessao-02-resultado legend{
-    font-size: 1.1rem;
+.Sessao-02-resultado legend {
+  font-size: 1.1rem;
 }
-
-
 
 /*Sessão que muda depedenddo da interatividade:*/
 
-.msgErro{
-    color: red;
-    display: none;
+.msgErro {
+  color: red;
+  display: none;
 }
 
-.erro{
-    border: solid 2px red !important;
+.erro {
+  border: solid 2px red !important;
+}
+
+.quadro-erro {
+  border-radius: 1rem;
+  background-color: #050381;
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.quadro-erro div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 10rem;
+  background-color: #050381;
+  color: #fff;
+}
+
+.quadro-erro div button {
+  padding: 10px;
+  border-radius: 5px;
+  border: solid #fff 1px; 
 }

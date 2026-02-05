@@ -67,11 +67,26 @@ function validarEntradas() {
   return true;
 }
 
-function calcularRescisao() {
-  
+function validarDatas() {
+  const [adAno, adMes, adDia] = inDataAdmissao.value.split("-");
+  const [desAno, desMes, desDia] = inDataDesligamento.value.split("-");
+
+  let dataAdmissao = new Date(adAno, adMes - 1, adDia);
+  dataAdmissao.setHours(0, 0, 0, 0);
+
+  let dataDesligamento = new Date(desAno, desMes - 1, desDia);
+  dataDesligamento.setHours(0, 0, 0, 0);
+
+  if (dataAdmissao > dataDesligamento) {
+    document.querySelector("#modalErro").showModal();
+    return false
+  }
+
+  return true
 }
 
 entradas.forEach((input) => {
+  //Faz com que as bordas em vermleho suma se o campo estiver preenchido
   input.addEventListener("input", () => {
     if (input.value.trim() !== "") {
       input.classList.remove("erro");
@@ -79,12 +94,22 @@ entradas.forEach((input) => {
   });
 });
 
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  
-  if(!validarEntradas()){
+
+  if (!validarEntradas()) {
+    return;
+  }
+
+  if(!validarDatas()){
     return
   }
 
-
 });
+
+
+
+  
+
+  
