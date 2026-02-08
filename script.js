@@ -79,10 +79,59 @@ function validarDatas() {
 
   if (dataAdmissao > dataDesligamento) {
     document.querySelector("#modalErro").showModal();
-    return false
+    return false;
   }
 
-  return true
+  return true;
+}
+
+function calcularBaseProporcional() { // AJUSTAR ESSA FUNÇÃO TEM ALGUMAS COISAS PARA RESOLVER
+  let proporcional = 0;
+
+  const salarioBruto = inSalarioBruto.value;
+
+  const [adAno, adMes, adDia] = inDataAdmissao.value.split("-");
+  const [desAno, desMes, desDia] = inDataDesligamento.value.split("-");
+
+  let dataAdmissao = new Date(adAno, adMes - 1, adDia);
+  dataAdmissao.setHours(0, 0, 0, 0);
+
+  let dataDesligamento = new Date(desAno, desMes - 1, desDia);
+  dataDesligamento.setHours(0, 0, 0, 0);
+
+  if (adMes == desMes && adAno == desAno) {
+    //Caso o mês e ano de admissão e demissão seja o mesmo, precisamos validar se houve 15 dias de trabalho, para saber se irá ter um mês de 13º proporcional
+    if (desDia - adDia + 1 >= 15) {
+      proporcional = (salarioBruto / 12) * 1;
+    }
+  }
+
+  if (adAno < desAno) {
+    //Se a pessoa não entrou no ano de desligamento
+    if (desDia >= 15) {
+      proporcional = (salarioBruto / 12) * desMes;
+    } else {
+      proporcional = (salarioBruto / 12) * (desMes - 1);
+    }
+  } else {
+
+    //Caso o ano de desligamento seja o mesmo de admissão
+    let meseValidos = 0;
+    if (adDia <= 15) {
+      meseValidos += 1;
+    }
+
+    if (desDia >= 15) {
+        proporcional = (salarioBruto / 12) * (desMes - adMes + meseValidos);
+    } else {
+      if (meseValidos < 1) {
+        proporcional = (salarioBruto / 12) * (desMes - adMes - 1);
+      } else {
+        proporcional = (salarioBruto / 12) * (desMes - adMes);
+      }
+    }
+  }
+  return proporcional
 }
 
 entradas.forEach((input) => {
@@ -94,7 +143,6 @@ entradas.forEach((input) => {
   });
 });
 
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -102,14 +150,18 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  if(!validarDatas()){
-    return
+  if (!validarDatas()) {
+    return;
   }
+  console.log(calcularBaseProporcional())
+
+  let verbasRescisorias = 0;
+  let descontos = 0;
+  let resultadoTotal = 0;
+
+  if(inFormaDesligamento.value !== "comJustaCausa"){
+    verbasRescisorias += calcularBaseProporcional()
+  }
+  
 
 });
-
-
-
-  
-
-  
