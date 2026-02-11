@@ -107,9 +107,12 @@
                 >
                 <select name="inAvisoPrevio" id="inAvisoPrevio">
                   <option value="" disabled selected hidden>Selecione</option>
-                  <option value="trabalhadoIndenizado">Trabalhado ou Indenizado</option>
+                  <option value="trabalhadoIndenizado">
+                    Trabalhado ou Indenizado
+                  </option>
                   <option value="descontado">Descontado</option>
                   <option value="dispensando">Dispensando</option>
+                  <option value="naoSeAplica">Não se aplica</option>
                 </select>
               </div>
             </div>
@@ -123,12 +126,18 @@
               <div class="campos">
                 <legend>Possuí férias vencidas?</legend>
                 <div id="campoFerias">
-                  <input type="radio" name="inFerias" id="sim" value="sim" />
+                  
+                  <input
+                    type="radio"
+                    name="inFeriasVencida"
+                    id="sim"
+                    value="sim"
+                  />
                   <label for="sim">Sim</label>
 
                   <input
                     type="radio"
-                    name="inFerias"
+                    name="inFeriasVencida"
                     id="nao"
                     value="nao"
                     checked
@@ -275,13 +284,13 @@
       </section>
     </main>
 
-      <dialog class="quadro-erro" id="modalErro">
-        <div>
-          <h2 id="tituloErro">Erro de Validação</h2>
-          <p>A data de admissão não pode ser maior que a de demissão.</p>
-          <button onclick="modalErro.close()">Entendi</button>
-        </div>
-      </dialog>
+    <dialog class="quadro-erro" id="modalErro">
+      <div>
+        <h2 id="tituloErro">Erro de Validação</h2>
+        <p>A data de admissão não pode ser maior que a de demissão.</p>
+        <button onclick="modalErro.close()">Entendi</button>
+      </div>
+    </dialog>
 
     <script src="script.js"></script>
   </body>

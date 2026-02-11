@@ -85,55 +85,65 @@ function validarDatas() {
   return true;
 }
 
-function calcularBaseProporcional() { // AJUSTAR ESSA FUNÇÃO TEM ALGUMAS COISAS PARA RESOLVER
+function calcularBaseProporcional() {
   let proporcional = 0;
 
-  const salarioBruto = inSalarioBruto.value;
+  const salarioBruto = Number(inSalarioBruto.value);
 
-  const [adAno, adMes, adDia] = inDataAdmissao.value.split("-");
-  const [desAno, desMes, desDia] = inDataDesligamento.value.split("-");
+  const [adAno, adMes, adDia] = inDataAdmissao.value.split("-").map(Number);
+  const [desAno, desMes, desDia] = inDataDesligamento.value
+    .split("-")
+    .map(Number);
 
-  let dataAdmissao = new Date(adAno, adMes - 1, adDia);
-  dataAdmissao.setHours(0, 0, 0, 0);
-
-  let dataDesligamento = new Date(desAno, desMes - 1, desDia);
-  dataDesligamento.setHours(0, 0, 0, 0);
-
-  if (adMes == desMes && adAno == desAno) {
-    //Caso o mês e ano de admissão e demissão seja o mesmo, precisamos validar se houve 15 dias de trabalho, para saber se irá ter um mês de 13º proporcional
-    if (desDia - adDia + 1 >= 15) {
-      proporcional = (salarioBruto / 12) * 1;
-    }
-  }
-
+  //Cenário se o ano de admissão for anterior ao ano de desligamento
   if (adAno < desAno) {
-    //Se a pessoa não entrou no ano de desligamento
-    if (desDia >= 15) {
+    if (adDia >= 15) {
       proporcional = (salarioBruto / 12) * desMes;
     } else {
       proporcional = (salarioBruto / 12) * (desMes - 1);
     }
   } else {
-
-    //Caso o ano de desligamento seja o mesmo de admissão
-    let meseValidos = 0;
-    if (adDia <= 15) {
-      meseValidos += 1;
-    }
-
-    if (desDia >= 15) {
-        proporcional = (salarioBruto / 12) * (desMes - adMes + meseValidos);
-    } else {
-      if (meseValidos < 1) {
-        proporcional = (salarioBruto / 12) * (desMes - adMes - 1);
-      } else {
-        proporcional = (salarioBruto / 12) * (desMes - adMes);
+    if (adMes === desMes) {
+      if (desDia - adDia + 1 >= 15) {
+        proporcional = (salarioBruto / 12) * 1;
       }
+    } else {
+      let mesValido = 0;
+
+      if (adDia <= 15) {
+        mesValido += 1;
+      }
+      let qtdMeses = desMes - adMes;
+
+      if (desDia < 15) {
+        qtdMeses = qtdMeses - 1;
+      }
+
+      proporcional = (salarioBruto / 12) * (mesValido + qtdMeses);
     }
   }
-  return proporcional
+  return proporcional;
 }
 
+function calculoFerias() {
+  const salarioBruto = Number(inSalarioBruto.value);
+  let valorFerias = 0;
+
+  if (inFormaDesligamento.value === "comJustaCausa") {
+    const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
+    if (feriasVencidas === "sim") {
+      valorFerias += salarioBruto + salarioBruto / 3;
+    }
+  } else {
+    const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
+    if (feriasVencidas === "sim") {
+      valorFerias += salarioBruto + salarioBruto / 3;
+    }
+    valorFerias += calcularBaseProporcional() + (calcularBaseProporcional() / 3);
+  }
+
+  return valorFerias;
+}
 entradas.forEach((input) => {
   //Faz com que as bordas em vermleho suma se o campo estiver preenchido
   input.addEventListener("input", () => {
@@ -143,8 +153,29 @@ entradas.forEach((input) => {
   });
 });
 
+inFormaDesligamento.addEventListener("change", () => {
+  //Bloqueuar as opções de aviso prévio caso selecione demissão sem justa causa
+  const valorEscolhido = inFormaDesligamento.value;
+
+  for (let i = 0; i < inAvisoPrevio.options.length; i++) {
+    inAvisoPrevio.options[i].disabled = false;
+  }
+
+  if (valorEscolhido === "comJustaCausa") {
+    inAvisoPrevio.querySelector(
+      'option[value="trabalhadoIndenizado"]',
+    ).disabled = true;
+    inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+
+    inAvisoPrevio.value = "naoSeAplica";
+  }
+});
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  const salarioBruto = Number(inSalarioBruto.value);
 
   if (!validarEntradas()) {
     return;
@@ -153,15 +184,14 @@ form.addEventListener("submit", (e) => {
   if (!validarDatas()) {
     return;
   }
-  console.log(calcularBaseProporcional())
 
   let verbasRescisorias = 0;
   let descontos = 0;
   let resultadoTotal = 0;
 
-  if(inFormaDesligamento.value !== "comJustaCausa"){
-    verbasRescisorias += calcularBaseProporcional()
+  if (inFormaDesligamento.value !== "comJustaCausa") {
+    verbasRescisorias += calcularBaseProporcional();
+    verbasRescisorias += calculoFerias();
   }
-  
-
+  console.log(verbasRescisorias)
 });
