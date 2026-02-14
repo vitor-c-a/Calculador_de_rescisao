@@ -127,19 +127,16 @@ function calcularBaseProporcional() {
 
 function calculoFerias() {
   const salarioBruto = Number(inSalarioBruto.value);
+  const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
   let valorFerias = 0;
 
-  if (inFormaDesligamento.value === "comJustaCausa") {
-    const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
-    if (feriasVencidas === "sim") {
-      valorFerias += salarioBruto + salarioBruto / 3;
-    }
-  } else {
-    const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
-    if (feriasVencidas === "sim") {
-      valorFerias += salarioBruto + salarioBruto / 3;
-    }
-    valorFerias += calcularBaseProporcional() + (calcularBaseProporcional() / 3);
+  if (feriasVencidas === "sim") {
+    valorFerias += salarioBruto + salarioBruto / 3;
+  }
+
+  if (inFormaDesligamento.value !== "comJustaCausa") {
+    const baseProporcional = calcularBaseProporcional();
+    valorFerias += baseProporcional + (baseProporcional / 3);
   }
 
   return valorFerias;
