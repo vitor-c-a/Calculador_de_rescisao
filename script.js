@@ -141,6 +141,17 @@ function calculoFerias() {
 
   return valorFerias;
 }
+
+function calcularAviso() { //PARAMOS AQUI*****
+  const salarioBruto = Number(inSalarioBruto.value);
+  const avisoPrevio = inAvisoPrevio.value;
+
+  let valorAviso = 0;
+
+
+
+}
+
 entradas.forEach((input) => {
   //Faz com que as bordas em vermleho suma se o campo estiver preenchido
   input.addEventListener("input", () => {
@@ -159,20 +170,29 @@ inFormaDesligamento.addEventListener("change", () => {
   }
 
   if (valorEscolhido === "comJustaCausa") {
-    inAvisoPrevio.querySelector(
-      'option[value="trabalhadoIndenizado"]',
-    ).disabled = true;
+    inAvisoPrevio.querySelector('option[value="trabalhadoIndenizado"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="indenizado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
 
     inAvisoPrevio.value = "naoSeAplica";
   }
+
+  if (valorEscolhido === "rescisaoIndireta"){
+    inAvisoPrevio.value = "indenizado";
+  }
+
+  if(valorEscolhido === "tempoDeterminado"){
+    inAvisoPrevio.value = "naoSeAplica";
+  }
+  
 });
+
+
+
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const salarioBruto = Number(inSalarioBruto.value);
 
   if (!validarEntradas()) {
     return;
@@ -186,9 +206,5 @@ form.addEventListener("submit", (e) => {
   let descontos = 0;
   let resultadoTotal = 0;
 
-  if (inFormaDesligamento.value !== "comJustaCausa") {
-    verbasRescisorias += calcularBaseProporcional();
-    verbasRescisorias += calculoFerias();
-  }
-  console.log(verbasRescisorias)
+
 });
