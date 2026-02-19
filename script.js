@@ -42,6 +42,8 @@ const outFgtsProp = document.querySelector("#outFgtsProp");
 const outMulta40 = document.querySelector("#outMulta40");
 const outTotalFgts = document.querySelector("#outTotalFgts");
 
+
+              //Funções de validação
 const entradas = [
   inSalarioBruto,
   inDataAdmissao,
@@ -85,15 +87,35 @@ function validarDatas() {
   return true;
 }
 
+
+              //Funções para calcular verbas rescisórias
+
+function calcularSaldoSalario(){
+  const salarioBruto = Number(inSalarioBruto.value);
+
+  let saldoSalario = 0;
+  const [adAno, adMes, adDia] = inDataAdmissao.value.split("-").map(Number);
+  const [desAno, desMes, desDia] = inDataDesligamento.value.split("-").map(Number);
+
+  if(adAno === desAno && adMes === desMes){
+    const diasTrabalhados = (desDia - adDia) + 1;
+    saldoSalario += (salarioBruto / 30) * diasTrabalhados;
+
+    return saldoSalario
+  }
+
+  saldoSalario += (salarioBruto / 30) * desDia;
+
+  return saldoSalario
+}
+
 function calcularBaseProporcional() {
   let proporcional = 0;
 
   const salarioBruto = Number(inSalarioBruto.value);
 
   const [adAno, adMes, adDia] = inDataAdmissao.value.split("-").map(Number);
-  const [desAno, desMes, desDia] = inDataDesligamento.value
-    .split("-")
-    .map(Number);
+  const [desAno, desMes, desDia] = inDataDesligamento.value.split("-").map(Number);
 
   //Cenário se o ano de admissão for anterior ao ano de desligamento
   if (adAno < desAno) {
@@ -142,16 +164,135 @@ function calculoFerias() {
   return valorFerias;
 }
 
-function calcularAviso() { //PARAMOS AQUI*****
+function calcularAviso() {
   const salarioBruto = Number(inSalarioBruto.value);
+  const formaDesligamento = inFormaDesligamento.value;
   const avisoPrevio = inAvisoPrevio.value;
 
-  let valorAviso = 0;
+  let valorAvisoPrevio = 0
+  
+  if(formaDesligamento === "comJustaCausa" || formaDesligamento === "tempoDeterminado"){
+    return valorAvisoPrevio
+  }
 
+  if(formaDesligamento === "acordoMutuo"){
+    if(avisoPrevio === "trabalhado"){
+      valorAvisoPrevio += salarioBruto
+      return valorAvisoPrevio
+    } else {
+      valorAvisoPrevio += salarioBruto / 2
+      return valorAvisoPrevio
+    }
+  }
 
+  if(avisoPrevio === "trabalhado" || avisoPrevio === "indenizado"){
+    valorAvisoPrevio += salarioBruto;
+    return valorAvisoPrevio
+  }
+
+  if(avisoPrevio === "dispensando" || avisoPrevio === "naoSeAplica"){
+    return valorAvisoPrevio
+  }
+
+  if(avisoPrevio === "descontado"){
+    valorAvisoPrevio += - salarioBruto;
+    return valorAvisoPrevio
+  }
+}
+
+              //Funções para calcular descontos
+
+function calcularInss(){
+  const TETO_INSS = 8475.55;
+  const salarioBruto = Number(inSalarioBruto.value);
+  const salario = Math.min(salarioBruto, TETO_INSS);
+    
+    const faixas = [
+        { limite: 1621.00, aliquota: 0.075 },
+        { limite: 2902.84, aliquota: 0.09 },
+        { limite: 4354.27, aliquota: 0.12 },
+        { limite: 8475.55, aliquota: 0.14 }
+    ];
+
+    let totalDesconto = 0;
+    let limiteAnterior = 0;
+
+    for (const faixa of faixas) {
+        if (salario > limiteAnterior) {
+            const baseCalculoFaixa = Math.min(salario, faixa.limite) - limiteAnterior;
+            totalDesconto += baseCalculoFaixa * faixa.aliquota;
+            limiteAnterior = faixa.limite;
+        } else {
+            break;
+        }
+    }
+
+    return totalDesconto;
+}
+
+function calcularInssDecimoTerceiro(){
+  const TETO_INSS = 8475.55;
+  const decimoProporcional = calcularBaseProporcional();
+  const decimo = Math.min(decimoProporcional, TETO_INSS);
+    
+    const faixas = [
+        { limite: 1621.00, aliquota: 0.075 },
+        { limite: 2902.84, aliquota: 0.09 },
+        { limite: 4354.27, aliquota: 0.12 },
+        { limite: 8475.55, aliquota: 0.14 }
+    ];
+
+    let totalDesconto = 0;
+    let limiteAnterior = 0;
+
+    for (const faixa of faixas) {
+        if (decimo > limiteAnterior) {
+            const baseCalculoFaixa = Math.min(decimo, faixa.limite) - limiteAnterior;
+            totalDesconto += baseCalculoFaixa * faixa.aliquota;
+            limiteAnterior = faixa.limite;
+        } else {
+            break;
+        }
+    }
+
+    return totalDesconto;
+}
+
+function calcularIrrf() {
+const salarioBruto = Number(inSalarioBruto.value);
+const numDependentes = Number(inDependentes.value);
+const DESCONTO_DEPENDENTE = 189.59;
+const DESCONTO_SIMPLIFICADO_2026 = 607.20; // Valor padrão de 2026
+
+const baseLegal = salarioBruto - calcularInss() - (numDependentes * DESCONTO_DEPENDENTE);
+
+const baseSimplificada = salarioBruto - DESCONTO_SIMPLIFICADO_2026;
+
+const baseCalculo = Math.min(baseLegal, baseSimplificada);
+
+const faixas = [
+    { limite: 2824.00, aliquota: 0, deducao: 0 },
+    { limite: 3751.05, aliquota: 0.075, deducao: 211.80 },
+    { limite: 4664.68, aliquota: 0.15, deducao: 493.13 },
+    { limite: 5839.45, aliquota: 0.225, deducao: 842.98 },
+    { limite: Infinity, aliquota: 0.275, deducao: 1134.95 }
+];
+
+let faixa = faixas.find(f => baseCalculo <= f.limite);
+
+const imposto = (baseCalculo * faixa.aliquota) - faixa.deducao;
+return imposto > 0 ? parseFloat(imposto.toFixed(2)) : 0;
+}
+
+              //Funções para calcular verbas do FGTS
+
+function fgtsDepositado(){     //PARAMOS AQUI >>>>>>>>>>>>>>>>>>>>
 
 }
 
+
+
+              //Interatividade em tempo real com o formulário
 entradas.forEach((input) => {
   //Faz com que as bordas em vermleho suma se o campo estiver preenchido
   input.addEventListener("input", () => {
@@ -162,15 +303,15 @@ entradas.forEach((input) => {
 });
 
 inFormaDesligamento.addEventListener("change", () => {
-  //Bloqueuar as opções de aviso prévio caso selecione demissão sem justa causa
+  //Bloqueia algumas opções de aviso prévio dependendo da forma de rescisão
   const valorEscolhido = inFormaDesligamento.value;
 
   for (let i = 0; i < inAvisoPrevio.options.length; i++) {
     inAvisoPrevio.options[i].disabled = false;
   }
 
-  if (valorEscolhido === "comJustaCausa") {
-    inAvisoPrevio.querySelector('option[value="trabalhadoIndenizado"]').disabled = true;
+  if (valorEscolhido === "comJustaCausa" || valorEscolhido === "tempoDeterminado") {
+    inAvisoPrevio.querySelector('option[value="trabalhado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="indenizado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
@@ -179,17 +320,15 @@ inFormaDesligamento.addEventListener("change", () => {
   }
 
   if (valorEscolhido === "rescisaoIndireta"){
+    inAvisoPrevio.querySelector('option[value="trabalhado"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="naoSeAplica"]').disabled = true;
+
     inAvisoPrevio.value = "indenizado";
   }
 
-  if(valorEscolhido === "tempoDeterminado"){
-    inAvisoPrevio.value = "naoSeAplica";
-  }
-  
 });
-
-
-
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -205,6 +344,26 @@ form.addEventListener("submit", (e) => {
   let verbasRescisorias = 0;
   let descontos = 0;
   let resultadoTotal = 0;
-
-
+  console.log(calcularInss())
+  console.log(calcularIrrf())
 });
+
+
+
+
+
+/*
+function calcularVerbasRescisorias() {
+  let verbasRescisorias = 0;
+
+  verbasRescisorias += calcularSaldoSalario();
+
+  if(inFormaDesligamento.value !== "comJustaCausa"){
+    verbasRescisorias += calcularBaseProporcional()
+  }
+
+  verbasRescisorias += calculoFerias();
+
+  verbasRescisorias += calcularAviso();
+}
+*/
