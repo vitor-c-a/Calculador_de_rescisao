@@ -191,9 +191,8 @@ select option {
 
 /*Estilização do resultado exibido para o usuário*/
 
-.Sessao-02-resultado {
-  width: 60%;
-  display: flex;
+.Sessao-02-resultado{
+  display: none;
   align-items: center;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -216,7 +215,7 @@ select option {
   grid-template-columns: repeat(3, 1fr);
 }
 .valores-rescisorios, .valores-descontos, .valores-fgts{
-  width: 16rem;
+  width: 18rem;
 }
 
 .resultado-detalhado h3 {

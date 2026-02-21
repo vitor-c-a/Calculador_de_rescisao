@@ -150,7 +150,7 @@ function calcularBaseProporcional() {
   return proporcional;
 }
 
-function calculoFerias() {
+function calcularFerias() {
   const salarioBruto = Number(inSalarioBruto.value);
   const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
   let valorFerias = 0;
@@ -172,35 +172,24 @@ function calcularAviso() {
   const formaDesligamento = inFormaDesligamento.value;
   const avisoPrevio = inAvisoPrevio.value;
 
-  let valorAvisoPrevio = 0
-  
-  if(formaDesligamento === "comJustaCausa" || formaDesligamento === "tempoDeterminado"){
-    return valorAvisoPrevio
+  if (
+    formaDesligamento === "comJustaCausa" || 
+    formaDesligamento === "tempoDeterminado" || 
+    avisoPrevio === "dispensando" || 
+    avisoPrevio === "naoSeAplica"
+  ) {
+    return 0;
   }
 
-  if(formaDesligamento === "acordoMutuo"){
-    if(avisoPrevio === "trabalhado"){
-      valorAvisoPrevio += salarioBruto
-      return valorAvisoPrevio
-    } else {
-      valorAvisoPrevio += salarioBruto / 2
-      return valorAvisoPrevio
-    }
+  if (formaDesligamento === "acordoMutuo") {
+    return avisoPrevio === "trabalhado" ? salarioBruto : salarioBruto / 2;
   }
 
-  if(avisoPrevio === "trabalhado" || avisoPrevio === "indenizado"){
-    valorAvisoPrevio += salarioBruto;
-    return valorAvisoPrevio
+  if (avisoPrevio === "trabalhado" || avisoPrevio === "indenizado" || avisoPrevio === "descontado") {
+    return salarioBruto;
   }
 
-  if(avisoPrevio === "dispensando" || avisoPrevio === "naoSeAplica"){
-    return valorAvisoPrevio
-  }
-
-  if(avisoPrevio === "descontado"){
-    valorAvisoPrevio += - salarioBruto;
-    return valorAvisoPrevio
-  }
+  return 0;
 }
 
               //Funções para calcular descontos
@@ -383,9 +372,12 @@ function multaFgts(){
 function calcularVerbasRescisorias(){
   let verbasRescisorias = 0;
 
-  verbasRescisorias += calculoFerias();
+  verbasRescisorias += calcularFerias();
   verbasRescisorias += calcularBaseProporcional(); //Decimo terceiro
-  verbasRescisorias += calcularAviso();
+  if(inAvisoPrevio.value === "descontado"){
+    verbasRescisorias -= calcularAviso();
+  }
+  
 
   return verbasRescisorias;
 }
@@ -414,9 +406,11 @@ function totalReceber(){
   let totalReceber = 0;
 
   totalReceber += calcularSaldoSalario();
-  totalReceber += calculoFerias();
+  totalReceber += calcularFerias();
   totalReceber += calcularBaseProporcional();
-  totalReceber += calcularAviso();
+    if(inAvisoPrevio.value === "descontado"){
+    totalReceber -= calcularAviso();
+  }
   
   return totalReceber;
 }
@@ -458,6 +452,12 @@ inFormaDesligamento.addEventListener("change", () => {
     inAvisoPrevio.value = "indenizado";
   }
 
+  if (valorEscolhido === "acordoMutuo"){
+    inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="naoSeAplica"]').disabled = true;
+  }
+
 });
 
 form.addEventListener("submit", (e) => {
@@ -471,15 +471,36 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
+  const quadroResultados = document.querySelector(".Sessao-02-resultado");
+  quadroResultados.style.display = "flex"
+
   outVerbas.innerText = moedaBR(calcularVerbasRescisorias());
   outDescontos.innerText = moedaBR(calcularDescontos())
   outTotal.innerText = moedaBR(calcularVerbasRescisorias() - calcularDescontos())
 
 
   outSalario.innerText = moedaBR(calcularSaldoSalario());
-  outFerias.innerText = moedaBR(calculoFerias());
+  outFerias.innerText = moedaBR(calcularFerias());
   outDecimoProp.innerText = moedaBR(calcularBaseProporcional());
-//PAREI AQUI>>>>>>>>>> Preciso ver como exibo o aviso prévio em receber ou descontos depedendo do tipo de aviso
+
+  const valorAviso = calcularAviso();
+  const receberAvisoRow = document.querySelector("#receberAviso");
+  const descontarAvisoRow = document.querySelector("#descontarAviso");
+
+  if (inAvisoPrevio.value === "descontado") {
+    receberAvisoRow.style.display = "none";
+    descontarAvisoRow.style.display = "grid";
+    
+    outAvisoPrevioDesconto.innerText = moedaBR(valorAviso);
+    outAvisoPrevio.innerText = moedaBR(0);
+  } else {
+    descontarAvisoRow.style.display = "none";
+    receberAvisoRow.style.display = "grid";
+
+    outAvisoPrevio.innerText = moedaBR(valorAviso);
+    outAvisoPrevioDesconto.innerText = moedaBR(0);
+  }
+  console.log(valorAviso)
   outTotalReceber.innerText = moedaBR(totalReceber());
 
 
@@ -493,7 +514,9 @@ form.addEventListener("submit", (e) => {
   outFgtsProp.innerText = moedaBR(fgtsDecimoTerceiro());
   outMulta.innerText = moedaBR(multaFgts());
   outTotalFgts.innerText = moedaBR(calcularValoresFGTS());
+});
 
-
-  
+form.addEventListener("reset", () => {
+  const quadroResultados = document.querySelector(".Sessao-02-resultado");
+  quadroResultados.style.display = "none"
 });
