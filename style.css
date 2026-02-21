@@ -215,9 +215,13 @@ select option {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+.valores-rescisorios, .valores-descontos, .valores-fgts{
+  width: 16rem;
+}
 
 .resultado-detalhado h3 {
   margin-bottom: 1rem;
+  
 }
 
 .resultados {

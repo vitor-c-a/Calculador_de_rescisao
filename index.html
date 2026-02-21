@@ -145,38 +145,33 @@
 
           <div class="resultados">
             <legend>
-              Saldo de salário:<br /><span id="outDiaSalario"></span>
+              Saldo de salário:<br />
             </legend>
-            <p class="aDireita" id="outSalario aDireita">0,00</p>
-          </div>
-
-          <div class="resultados hidden">
-            <legend>
-              Férias proporcionais + 1/3:<br /><span id="outMesesFeriasProp"></span>
-            </legend>
-            <p class="aDireita" id="outFeriasProp">0,00</p>
-          </div>
-
-          <div class="resultados hidden">
-            <legend>Férias vencidas + 1/3:</legend>
-            <p class="aDireita" id="outFeriasVencida">0,00</p>
+            <p class="aDireita" id="outSalario">0,00</p>
           </div>
 
           <div class="resultados">
             <legend>
-              13º proporcional:<br /><span id="outMesesDecimo"></span>
+              Férias + 1/3:<br />
+            </legend>
+            <p class="aDireita" id="outFerias">0,00</p>
+          </div>
+
+          <div class="resultados">
+            <legend>
+              13º proporcional:<br />
             </legend>
             <p class="aDireita" id="outDecimoProp">0,00</p>
           </div>
 
-          <div class="resultados hidden">
+          <div class="resultados" id="receberAviso">
             <legend>Aviso prévio:</legend>
-            <p class="aDireita" id="outAvisoPrevio">0,00</p>
+            <p class="aDireita" id="outAvisoPrevioDesconto">0,00</p>
           </div>
 
           <div class="resultados">
             <legend>Total:</legend>
-            <p class="aDireita" id="outTotalRescisorios">0,00</p>
+            <p class="aDireita" id="outTotalReceber">0,00</p>
           </div>
         </div>
         <!--FIM de clas="valores-rescisorios"-->
@@ -199,6 +194,12 @@
             <p class="aDireita" id="outIrrf">0,00</p>
           </div>
 
+          <div class="resultados" id="descontarAviso">
+            <legend>Aviso prévio:</legend>
+            <p class="aDireita" id="outAvisoPrevio">0,00</p>
+          </div>
+
+
           <div class="resultados">
             <legend>Total:</legend>
             <p class="aDireita" id="outTotalDescontos">0,00</p>
@@ -210,13 +211,8 @@
           <h3>FGTS</h3>
 
           <div class="resultados">
-            <legend>Depositado:<br /><span id="outMesesFgts"></span></legend>
+            <legend>Depositado:<br /></legend>
             <p class="aDireita" id="outDepositosFgts">0,00</p>
-          </div>
-
-          <div class="resultados">
-            <legend>Saldo salário:</legend>
-            <p class="aDireita" id="outFgtsSalario">0,00</p>
           </div>
 
           <div class="resultados">
@@ -226,10 +222,10 @@
 
           <div class="resultados">
             <legend>Multa 40%:</legend>
-            <p class="aDireita" id="outMulta40">0,00</p>
+            <p class="aDireita" id="outMulta">0,00</p>
           </div>
 
-          <div class="resultados hidden">
+          <div class="resultados">
             <legend>Total:</legend>
             <p class="aDireita" id="outTotalFgts">0,00</p>
           </div>

@@ -16,30 +16,25 @@ const outVerbas = document.querySelector("#outVerbas");
 const outDescontos = document.querySelector("#outDescontos");
 const outTotal = document.querySelector("#outTotal");
 
-const outDiaSalario = document.querySelector("#outDiaSalario");
 const outSalario = document.querySelector("#outSalario");
 
-const outMesesFeriasProp = document.querySelector("#outMesesFeriasProp");
-const outFeriasProp = document.querySelector("#outFeriasProp");
-const outFeriasVencida = document.querySelector("#outFeriasVencida");
+const outFerias = document.querySelector("#outFerias");
 
-const outMesesDecimo = document.querySelector("#outMesesDecimo");
 const outDecimoProp = document.querySelector("#outDecimoProp");
 
 const outAvisoPrevio = document.querySelector("#outAvisoPrevio");
+const outAvisoPrevioDesconto = document.querySelector("#outAvisoPrevioDesconto");
 
-const outTotalRescisorios = document.querySelector("#outTotalRescisorios");
+const outTotalReceber = document.querySelector("#outTotalReceber");
 
 const outInss = document.querySelector("#outInss");
 const outInss13 = document.querySelector("#outInss13");
 const outIrrf = document.querySelector("#outIrrf");
 const outTotalDescontos = document.querySelector("#outTotalDescontos");
 
-const outMesesFgts = document.querySelector("#outMesesFgts");
 const outDepositosFgts = document.querySelector("#outDepositosFgts");
-const outFgtsSalario = document.querySelector("#outFgtsSalario");
 const outFgtsProp = document.querySelector("#outFgtsProp");
-const outMulta40 = document.querySelector("#outMulta40");
+const outMulta = document.querySelector("#outMulta");
 const outTotalFgts = document.querySelector("#outTotalFgts");
 
 
@@ -86,6 +81,14 @@ function validarDatas() {
 
   return true;
 }
+
+function moedaBR(valor) { //Formtar os resultados em moeda pt-br
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  }).format(valor);
+}
+
 
 
               //Funções para calcular verbas rescisórias
@@ -286,10 +289,137 @@ return imposto > 0 ? parseFloat(imposto.toFixed(2)) : 0;
 
               //Funções para calcular verbas do FGTS
 
-function fgtsDepositado(){     //PARAMOS AQUI >>>>>>>>>>>>>>>>>>>>
+function fgtsDepositado() {
+    const salario = Number(inSalarioBruto.value);
+    const adm = new Date(inDataAdmissao.value);
+    const des = new Date(inDataDesligamento.value);
 
+    const ALIQUOTA = 0.08;
+    const TAXA_MENSAL = 0.0025;
+
+    let saldo = 0;
+
+    function diasNoMes(data) {
+        return new Date(data.getFullYear(), data.getMonth() + 1, 0).getDate();
+    }
+
+    function aplicarMes(deposito) { //Acrescimemo mensal de rendimento do FGTS
+        saldo *= (1 + TAXA_MENSAL); // rendimento do saldo acumulado
+        saldo += deposito;          // depósito do mês
+    }
+
+    // Adm e Des no mesmo mês e ano
+    if (
+        adm.getFullYear() === des.getFullYear() &&
+        adm.getMonth() === des.getMonth()
+    ) {
+        const diasMes = diasNoMes(adm);
+        const diasTrabalhados = des.getDate() - adm.getDate() + 1;
+        const fgtsMes = (salario / diasMes) * diasTrabalhados * ALIQUOTA;
+
+        aplicarMes(fgtsMes);
+        return saldo;
+    }
+
+    // primeiro mês (proporcional)
+    const diasMesAdm = diasNoMes(adm);
+    const diasTrabalhadosAdm = diasMesAdm - adm.getDate() + 1;
+    const fgtsMesAdm = (salario / diasMesAdm) * diasTrabalhadosAdm * ALIQUOTA;
+
+    aplicarMes(fgtsMesAdm);
+
+    // meses completos
+    let cursor = new Date(adm.getFullYear(), adm.getMonth() + 1, 1);
+
+    while (
+        cursor.getFullYear() < des.getFullYear() ||
+        (cursor.getFullYear() === des.getFullYear() && cursor.getMonth() < des.getMonth())
+    ) {
+        const fgtsMesCheio = salario * ALIQUOTA;
+        aplicarMes(fgtsMesCheio);
+        cursor.setMonth(cursor.getMonth() + 1);
+    }
+
+    // último mês (proporcional)
+    const diasMesDes = diasNoMes(des);
+    const diasTrabalhadosDes = des.getDate();
+    const fgtsMesDes = (salario / diasMesDes) * diasTrabalhadosDes * ALIQUOTA;
+
+    aplicarMes(fgtsMesDes);
+
+    return saldo;
 }
 
+function fgtsDecimoTerceiro(){
+  const formaDesligamento = inFormaDesligamento.value;
+  let fgtsDecimoTerceiro = 0;
+
+  if(formaDesligamento === "comJustaCausa"){
+    return fgtsDecimoTerceiro
+  } else{
+    fgtsDecimoTerceiro += calcularBaseProporcional() * 0.08
+    return fgtsDecimoTerceiro
+  }
+}
+
+function multaFgts(){
+  const formaDesligamento = inFormaDesligamento.value;
+  let multaFgts = 0
+
+  if(formaDesligamento === "semJustaCausa" || formaDesligamento === "rescisaoIndireta"){
+    multaFgts += fgtsDepositado() * 0.4;
+    return multaFgts
+
+  } else if(formaDesligamento === "acordoMutuo"){
+    multaFgts += fgtsDepositado() * 0.2;
+    return multaFgts
+
+  } else {
+    return multaFgts
+  }
+}
+
+              //funções para calcular os totais dos calculos
+function calcularVerbasRescisorias(){
+  let verbasRescisorias = 0;
+
+  verbasRescisorias += calculoFerias();
+  verbasRescisorias += calcularBaseProporcional(); //Decimo terceiro
+  verbasRescisorias += calcularAviso();
+
+  return verbasRescisorias;
+}
+
+function calcularDescontos(){
+  let descontos = 0;
+
+  descontos += calcularInss();
+  descontos += calcularInssDecimoTerceiro();
+  descontos += calcularIrrf();
+
+  return descontos;
+}
+
+function calcularValoresFGTS(){
+  let fgtsTotal = 0;
+
+  fgtsTotal += fgtsDepositado();
+  fgtsTotal += fgtsDecimoTerceiro();
+  fgtsTotal += multaFgts();
+
+  return fgtsTotal;
+}
+
+function totalReceber(){
+  let totalReceber = 0;
+
+  totalReceber += calcularSaldoSalario();
+  totalReceber += calculoFerias();
+  totalReceber += calcularBaseProporcional();
+  totalReceber += calcularAviso();
+  
+  return totalReceber;
+}
 
 
               //Interatividade em tempo real com o formulário
@@ -341,29 +471,29 @@ form.addEventListener("submit", (e) => {
     return;
   }
 
-  let verbasRescisorias = 0;
-  let descontos = 0;
-  let resultadoTotal = 0;
-  console.log(calcularInss())
-  console.log(calcularIrrf())
+  outVerbas.innerText = moedaBR(calcularVerbasRescisorias());
+  outDescontos.innerText = moedaBR(calcularDescontos())
+  outTotal.innerText = moedaBR(calcularVerbasRescisorias() - calcularDescontos())
+
+
+  outSalario.innerText = moedaBR(calcularSaldoSalario());
+  outFerias.innerText = moedaBR(calculoFerias());
+  outDecimoProp.innerText = moedaBR(calcularBaseProporcional());
+//PAREI AQUI>>>>>>>>>> Preciso ver como exibo o aviso prévio em receber ou descontos depedendo do tipo de aviso
+  outTotalReceber.innerText = moedaBR(totalReceber());
+
+
+  outInss.innerText = moedaBR(calcularInss());
+  outInss13.innerText = moedaBR(calcularInssDecimoTerceiro());
+  outIrrf.innerText = moedaBR(calcularIrrf());
+  outTotalDescontos.innerText = moedaBR(calcularDescontos());
+
+
+  outDepositosFgts.innerText = moedaBR(fgtsDepositado());
+  outFgtsProp.innerText = moedaBR(fgtsDecimoTerceiro());
+  outMulta.innerText = moedaBR(multaFgts());
+  outTotalFgts.innerText = moedaBR(calcularValoresFGTS());
+
+
+  
 });
-
-
-
-
-
-/*
-function calcularVerbasRescisorias() {
-  let verbasRescisorias = 0;
-
-  verbasRescisorias += calcularSaldoSalario();
-
-  if(inFormaDesligamento.value !== "comJustaCausa"){
-    verbasRescisorias += calcularBaseProporcional()
-  }
-
-  verbasRescisorias += calculoFerias();
-
-  verbasRescisorias += calcularAviso();
-}
-*/
