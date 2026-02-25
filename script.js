@@ -498,6 +498,7 @@ form.addEventListener("submit", (e) => {
 
   const quadroResultados = document.querySelector(".Sessao-02-resultado");
   quadroResultados.style.display = "flex"
+  quadroResultados.scrollIntoView({ behavior: 'smooth' });
 
   outVerbas.innerText = moedaBR(calcularVerbasRescisorias());
   outDescontos.innerText = moedaBR(calcularDescontos())
