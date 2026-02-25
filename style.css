@@ -53,7 +53,7 @@ form {
   margin-bottom: 1.5rem;
 }
 
-.titulo {
+.titulo{
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
@@ -69,7 +69,7 @@ form {
   margin-bottom: 1rem;
 }
 
-.titulos-sessao {
+.titulos-sessao{
   font-size: 1.05rem;
   font-weight: 500;
   margin-bottom: 0.6rem;
@@ -161,6 +161,7 @@ select option {
 .botoes {
   display: flex;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .btn {
@@ -192,7 +193,7 @@ select option {
 /*Estilização do resultado exibido para o usuário*/
 
 .Sessao-02-resultado{
-  display: none;
+  display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -207,7 +208,7 @@ select option {
   width: 38rem;
 }
 
-.resultado-detalhado {
+.resultado-detalhado{
   display: flex;
   gap: 2rem;
   margin-top: 1rem;
@@ -288,6 +289,7 @@ select option {
 .descricao {
   position: relative;
   margin-right: 5px;
+  
   cursor: help;
 }
 
@@ -314,19 +316,98 @@ select option {
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%) scale(0);
+  
+  /* AJUSTES DE RESPONSIVIDADE*/
+  width: 80vw;
+  max-width: 250px;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: center;
+
   background-color: #333;
   color: #fff;
-  padding: 8px 12px;
+  padding: 10px;
   border-radius: 6px;
-  white-space: nowrap;
   font-size: 13px;
   opacity: 0;
-  transition: all 0.2s ease; 
-  pointer-events: none; 
-  z-index: 10;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 9999; 
 }
-
 .descricao:hover::after {
   opacity: 1;
   transform: translateX(-50%) scale(1);
+}
+
+@media (max-width: 1080px){
+  .Sessao-02-resultado{
+    width: 38rem;
+  }
+  .resultado-principal {
+    width: 30rem;
+  }
+
+  .resultado-detalhado{
+    grid-template-columns: 2fr;
+    width: 30rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .valores-rescisorios, .valores-descontos, .valores-fgts{
+  width: 30rem;
+  }
+
+  .descricao::after {
+    left: 3rem;
+  }
+}
+
+@media (max-width: 670px){
+
+  form{
+    width: 20rem;
+  }
+
+  .form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  }
+
+  .titulo{
+    text-align: center;
+  }
+
+  .Sessao-02-resultado{
+    width: 20rem;
+  }
+
+  .msgErro{
+    font-size: 0.9rem;
+  }
+
+  .resultado-principal {
+    width: 18rem;
+  }
+
+  .resultado-detalhado{
+    grid-template-columns: 2fr;
+    width: 18rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .valores-rescisorios, .valores-descontos, .valores-fgts{
+    width: 18rem;
+  }
+
+  .descricao::after {
+    left: 0;
+    transform: scale(0); 
+    
+  }
+  
+  .descricao:hover::after {
+    transform: scale(1);
+  }
 }
