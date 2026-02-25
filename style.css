@@ -197,8 +197,8 @@ select option {
   flex-direction: column;
   margin-top: 1.5rem;
   color: #fff;
-  background-color: rgb(255, 255, 255, 0.3);
-  padding: 1rem;
+  background-color: rgba(197, 150, 150, 0.3);
+  padding: 3rem;
   border-radius: 1rem;
   margin-bottom: 1rem;
 }
@@ -280,4 +280,53 @@ select option {
   padding: 10px;
   border-radius: 5px;
   border: solid #fff 1px; 
+}
+
+
+
+/* Configuração do ponto de interrogação */
+.descricao {
+  position: relative;
+  margin-right: 5px;
+  cursor: help;
+}
+
+/* Criando o ícone (?) fixo */
+.descricao::before {
+  content: "?";
+  position: absolute;
+  right: 1px;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  background-color: rgb(21, 93, 252);
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.descricao::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.2s ease; 
+  pointer-events: none; 
+  z-index: 10;
+}
+
+.descricao:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }

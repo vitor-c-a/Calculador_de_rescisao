@@ -94,7 +94,7 @@ function moedaBR(valor) { //Formtar os resultados em moeda pt-br
               //Funções para calcular verbas rescisórias
 
 function calcularSaldoSalario(){
-  const salarioBruto = Number(inSalarioBruto.value);
+  const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
 
   let saldoSalario = 0;
   const [adAno, adMes, adDia] = inDataAdmissao.value.split("-").map(Number);
@@ -115,7 +115,7 @@ function calcularSaldoSalario(){
 function calcularBaseProporcional() {
   let proporcional = 0;
 
-  const salarioBruto = Number(inSalarioBruto.value);
+  const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
 
   const [adAno, adMes, adDia] = inDataAdmissao.value.split("-").map(Number);
   const [desAno, desMes, desDia] = inDataDesligamento.value.split("-").map(Number);
@@ -151,7 +151,7 @@ function calcularBaseProporcional() {
 }
 
 function calcularFerias() {
-  const salarioBruto = Number(inSalarioBruto.value);
+  const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
   const feriasVencidas = document.querySelector("input[name='inFeriasVencida']:checked").value;
   let valorFerias = 0;
 
@@ -168,7 +168,7 @@ function calcularFerias() {
 }
 
 function calcularAviso() {
-  const salarioBruto = Number(inSalarioBruto.value);
+  const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
   const formaDesligamento = inFormaDesligamento.value;
   const avisoPrevio = inAvisoPrevio.value;
 
@@ -196,7 +196,7 @@ function calcularAviso() {
 
 function calcularInss(){
   const TETO_INSS = 8475.55;
-  const salarioBruto = Number(inSalarioBruto.value);
+  const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
   const salario = Math.min(salarioBruto, TETO_INSS);
     
     const faixas = [
@@ -251,7 +251,7 @@ function calcularInssDecimoTerceiro(){
 }
 
 function calcularIrrf() {
-const salarioBruto = Number(inSalarioBruto.value);
+const salarioBruto = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
 const numDependentes = Number(inDependentes.value);
 const DESCONTO_DEPENDENTE = 189.59;
 const DESCONTO_SIMPLIFICADO_2026 = 607.20; // Valor padrão de 2026
@@ -279,7 +279,7 @@ return imposto > 0 ? parseFloat(imposto.toFixed(2)) : 0;
               //Funções para calcular verbas do FGTS
 
 function fgtsDepositado() {
-    const salario = Number(inSalarioBruto.value);
+    const salario = Number(inSalarioBruto.value.replace(/\D/g, "")) / 100;
     const adm = new Date(inDataAdmissao.value);
     const des = new Date(inDataDesligamento.value);
 
@@ -372,6 +372,7 @@ function multaFgts(){
 function calcularVerbasRescisorias(){
   let verbasRescisorias = 0;
 
+  verbasRescisorias += calcularSaldoSalario()
   verbasRescisorias += calcularFerias();
   verbasRescisorias += calcularBaseProporcional(); //Decimo terceiro
   if(inAvisoPrevio.value === "descontado"){
@@ -456,9 +457,33 @@ inFormaDesligamento.addEventListener("change", () => {
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="naoSeAplica"]').disabled = true;
+
+    inAvisoPrevio.value = "";
   }
 
 });
+
+inSalarioBruto.addEventListener("input", (e) =>{ //Máscara para Input com Preenchimento Decimal Dinâmico
+  
+  let valor = e.target.value;
+
+  valor = valor.replace(/\D/g, "");
+
+  if(valor === ""){
+    e.target.value = "";
+    return;
+  }
+
+  valor = parseInt(valor, 10) / 100;
+
+  valor = valor.toLocaleString('pt-BR', {
+    style: 'decimal',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  
+  e.target.value = valor;
+})
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -500,7 +525,6 @@ form.addEventListener("submit", (e) => {
     outAvisoPrevio.innerText = moedaBR(valorAviso);
     outAvisoPrevioDesconto.innerText = moedaBR(0);
   }
-  console.log(valorAviso)
   outTotalReceber.innerText = moedaBR(totalReceber());
 
 
