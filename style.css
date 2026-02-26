@@ -193,7 +193,7 @@ select option {
 /*Estilização do resultado exibido para o usuário*/
 
 .Sessao-02-resultado{
-  display: none;
+  display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -410,4 +410,20 @@ select option {
   .descricao:hover::after {
     transform: scale(1);
   }
+}
+
+/* Parte sobre interpretação do resultado:*/
+
+.interpretacao-resultado{
+  width: 38rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #fff;
+  background-color: rgba(132, 102, 102, 0.4);
+  padding: 3rem;
+  border-radius: 1rem;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
