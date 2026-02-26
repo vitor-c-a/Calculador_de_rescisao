@@ -125,7 +125,13 @@ function calcularBaseProporcional() {
     if (adDia >= 15) {
       proporcional = (salarioBruto / 12) * desMes;
     } else {
-      proporcional = (salarioBruto / 12) * (desMes - 1);
+      if(desMes === 1 && desDia >= 15){ //Caso a pessoa tenha saido no primeiro mês do ano, mas já estivesse desde o ano passado, mas ainda assim é necessário estar 15 dias para contar um mês válido
+        proporcional = (salarioBruto / 12) * (desMes);
+        return proporcional
+      }else{
+        proporcional = (salarioBruto / 12) * (desMes - 1);
+        return proporcional
+      }
     }
   } else {
     if (adMes === desMes) {
@@ -175,7 +181,7 @@ function calcularAviso() {
   if (
     formaDesligamento === "comJustaCausa" || 
     formaDesligamento === "tempoDeterminado" || 
-    avisoPrevio === "dispensando" || 
+    avisoPrevio === "dispensado" || 
     avisoPrevio === "naoSeAplica"
   ) {
     return 0;
@@ -376,9 +382,9 @@ function calcularVerbasRescisorias(){
   verbasRescisorias += calcularFerias();
   verbasRescisorias += calcularBaseProporcional(); //Decimo terceiro
   if(inAvisoPrevio.value === "descontado"){
-    verbasRescisorias -= calcularAviso();
+    return verbasRescisorias
   }
-  
+  verbasRescisorias += calcularAviso();
 
   return verbasRescisorias;
 }
@@ -389,6 +395,10 @@ function calcularDescontos(){
   descontos += calcularInss();
   descontos += calcularInssDecimoTerceiro();
   descontos += calcularIrrf();
+  if(inAvisoPrevio.value === "descontado"){
+    descontos += calcularAviso();
+    return descontos;
+  }
 
   return descontos;
 }
@@ -439,7 +449,7 @@ inFormaDesligamento.addEventListener("change", () => {
     inAvisoPrevio.querySelector('option[value="trabalhado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="indenizado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
-    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensado"]').disabled = true;
 
     inAvisoPrevio.value = "naoSeAplica";
   }
@@ -447,7 +457,7 @@ inFormaDesligamento.addEventListener("change", () => {
   if (valorEscolhido === "rescisaoIndireta"){
     inAvisoPrevio.querySelector('option[value="trabalhado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
-    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="naoSeAplica"]').disabled = true;
 
     inAvisoPrevio.value = "indenizado";
@@ -455,7 +465,7 @@ inFormaDesligamento.addEventListener("change", () => {
 
   if (valorEscolhido === "acordoMutuo"){
     inAvisoPrevio.querySelector('option[value="descontado"]').disabled = true;
-    inAvisoPrevio.querySelector('option[value="dispensando"]').disabled = true;
+    inAvisoPrevio.querySelector('option[value="dispensado"]').disabled = true;
     inAvisoPrevio.querySelector('option[value="naoSeAplica"]').disabled = true;
 
     inAvisoPrevio.value = "";

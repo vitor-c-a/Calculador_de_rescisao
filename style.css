@@ -412,7 +412,7 @@ select option {
   }
 }
 
-/* Parte sobre interpretação do resultado:*/
+/* Parte sobre interpretação do resultado e explicações sobre rescisão trabalhista:*/
 
 .interpretacao-resultado{
   width: 38rem;
@@ -427,3 +427,4 @@ select option {
   left: 50%;
   transform: translate(-50%);
 }
+
