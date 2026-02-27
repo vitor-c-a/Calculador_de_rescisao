@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css" />
   <title>Calculadora de Rescisão Trabalhista</title>
 </head>
@@ -237,7 +238,7 @@
     </section>
   </main>
 
-  <section class="interpretacao-resultado" aria-labelledby="titulo-interpretacao">
+  <section class="modelo-de-container-transparente" aria-labelledby="titulo-interpretacao">
 
     <h2 id="titulo-interpretacao">🧮 Como interpretar o resultado da calculadora</h2>
 
@@ -272,7 +273,7 @@
       </li>
     </ul>
 
-    <p class="aviso">
+    <p>
       👉 Use o resultado como uma <strong>base de conferência e entendimento dos seus direitos</strong>,
       não como valor definitivo de pagamento.
     </p>
@@ -283,8 +284,329 @@
     </p>
   </section> <!--Fim da section interpretacao-resultado-->
 
+  <section class="rescisao-clt modelo-de-container-transparente" aria-labelledby="titulo-rescisao">
+    <details class="ver-mais">
+      <summary>🧭 O que é rescisão trabalhista CLT</summary>
+
+      <div>
+        <p>
+          A rescisão trabalhista é o processo que formaliza o fim do vínculo de emprego com carteira assinada.
+          Nesse momento, são calculados e pagos os valores devidos ao trabalhador conforme as regras da CLT
+          e o tipo de desligamento ocorrido.
+        </p>
+
+        <p>
+          O término do contrato pode acontecer por iniciativa do empregador, do empregado ou por acordo entre as partes.
+          Cada modalidade possui regras próprias que determinam quais verbas o trabalhador recebe e quais descontos
+          podem
+          ser
+          aplicados.
+        </p>
+
+        <p>
+          Por isso, entender o tipo de rescisão é essencial para interpretar corretamente o valor do acerto final.
+        </p>
+      </div>
+    </details>
+
+    <details>
+      <summary>📂 Tipos de rescisão (com impacto no dinheiro)</summary>
+
+      <p>
+        O valor da rescisão depende diretamente do <strong>tipo de desligamento</strong>.
+        Cada modalidade possui regras próprias que determinam quais verbas o trabalhador recebe
+        e quais descontos podem ser aplicados.
+      </p>
+
+      <!-- Demissão sem justa causa -->
+      <details>
+        <summary><strong>Demissão sem justa causa</strong></summary>
+        <p>
+          Ocorre quando a empresa decide encerrar o contrato sem que o trabalhador tenha cometido falta grave.
+          É a modalidade que normalmente gera o maior valor de acerto.
+        </p>
+
+        <p><strong>Direitos mais comuns:</strong></p>
+        <ul>
+          <li>Aviso prévio (trabalhado ou indenizado)</li>
+          <li>Multa de 40% sobre o saldo do FGTS</li>
+          <li>Saque integral do FGTS</li>
+          <li>Seguro-desemprego (se cumprir os requisitos)</li>
+          <li>Férias vencidas e proporcionais + adicional de 1/3</li>
+          <li>13º salário proporcional</li>
+          <li>Saldo de salário</li>
+        </ul>
+      </details>
+
+      <!-- Rescisão indireta -->
+      <details>
+        <summary><strong>Rescisão indireta</strong></summary>
+        <p>
+          Ocorre quando o trabalhador encerra o contrato por falta grave do empregador
+          (por exemplo: atraso recorrente de salário ou descumprimento contratual).
+          Na prática, produz efeitos semelhantes à demissão sem justa causa.
+        </p>
+
+        <p><strong>Direitos mais comuns:</strong></p>
+        <ul>
+          <li>Aviso prévio</li>
+          <li>Multa de 40% do FGTS</li>
+          <li>Saque integral do FGTS</li>
+          <li>Possibilidade de seguro-desemprego</li>
+          <li>Férias + 1/3</li>
+          <li>13º proporcional</li>
+          <li>Saldo de salário</li>
+        </ul>
+
+        <p><strong>Observação:</strong> geralmente exige reconhecimento formal (judicial ou acordo).</p>
+      </details>
+
+      <!-- Demissão com justa causa -->
+      <details>
+        <summary><strong>Demissão com justa causa</strong></summary>
+        <p>
+          Ocorre quando o trabalhador comete falta grave prevista em lei.
+          Nessa modalidade há perda de diversos direitos rescisórios.
+        </p>
+
+        <p><strong>Verbas normalmente devidas:</strong></p>
+        <ul>
+          <li>Saldo de salário</li>
+          <li>Férias vencidas + 1/3 (se houver)</li>
+        </ul>
+
+        <p><strong>Não recebe:</strong></p>
+        <ul>
+          <li>Multa do FGTS</li>
+          <li>Saque do FGTS</li>
+          <li>Seguro-desemprego</li>
+          <li>13º proporcional</li>
+          <li>Férias proporcionais</li>
+        </ul>
+      </details>
+
+      <!-- Pedido de demissão -->
+      <details>
+        <summary><strong>Pedido de demissão</strong></summary>
+        <p>
+          Ocorre quando o próprio trabalhador decide encerrar o contrato de trabalho.
+        </p>
+
+        <p><strong>Características principais:</strong></p>
+        <ul>
+          <li>Não há multa de 40% do FGTS</li>
+          <li>Normalmente não pode sacar o FGTS</li>
+          <li>Não há seguro-desemprego</li>
+          <li>Pode haver desconto do aviso prévio não trabalhado</li>
+        </ul>
+
+        <p><strong>Direitos mantidos:</strong></p>
+        <ul>
+          <li>Saldo de salário</li>
+          <li>Férias vencidas e proporcionais + 1/3</li>
+          <li>13º proporcional</li>
+        </ul>
+      </details>
+
+      <!-- Acordo mútuo -->
+      <details>
+        <summary><strong>Rescisão por acordo mútuo</strong></summary>
+        <p>
+          Ocorre quando empresa e trabalhador concordam com o encerramento do contrato
+          de forma negociada.
+        </p>
+
+        <p><strong>Regras específicas:</strong></p>
+        <ul>
+          <li>Multa do FGTS reduzida para 20%</li>
+          <li>Saque permitido de até 80% do FGTS</li>
+          <li>Sem direito ao seguro-desemprego</li>
+          <li>Aviso prévio pago pela metade (se indenizado)</li>
+        </ul>
+
+        <p><strong>Também recebe:</strong></p>
+        <ul>
+          <li>Saldo de salário</li>
+          <li>Férias + 1/3</li>
+          <li>13º proporcional</li>
+        </ul>
+      </details>
+
+      <!-- Contrato por tempo determinado -->
+      <details>
+        <summary><strong>Fim de contrato por tempo determinado</strong></summary>
+        <p>
+          Aplica-se quando o contrato possui data prevista para terminar (ex.: contrato temporário).
+          O resultado depende de como ocorreu o encerramento.
+        </p>
+
+        <h4>Quando o contrato termina na data prevista</h4>
+        <ul>
+          <li>Saldo de salário</li>
+          <li>Férias proporcionais + 1/3</li>
+          <li>13º proporcional</li>
+          <li>Não há multa de 40% do FGTS</li>
+          <li>Não há seguro-desemprego (em regra)</li>
+        </ul>
+
+        <h4>Quando a empresa encerra antes do prazo</h4>
+        <p>
+          O empregador deve indenizar o trabalhador pelo período restante do contrato.
+        </p>
+        <ul>
+          <li>Saldo de salário</li>
+          <li>Férias + 1/3</li>
+          <li>13º proporcional</li>
+          <li>Indenização pelo término antecipado</li>
+          <li>Possibilidade de saque do FGTS</li>
+        </ul>
+
+        <h4>Quando o trabalhador pede para sair antes do prazo</h4>
+        <p>
+          O trabalhador pode ter que indenizar o empregador pelo rompimento antecipado,
+          conforme regras do contrato e da legislação.
+        </p>
+      </details>
+    </details>
+
+    <details>
+      <summary>
+        💰 Como o valor da rescisão é formado
+      </summary>
+
+      <p>
+        O valor da rescisão é composto pela soma das verbas devidas ao trabalhador,
+        menos os descontos legais aplicáveis. Abaixo estão os principais elementos
+        considerados no cálculo.
+      </p>
+
+      <!-- Proventos -->
+      <h3>Proventos (valores que o trabalhador recebe)</h3>
+      <p>
+        São os valores positivos que compõem o total bruto da rescisão.
+      </p>
+      <ul>
+        <li><strong>Saldo de salário:</strong> dias trabalhados no mês da rescisão.</li>
+        <li><strong>Férias vencidas + 1/3:</strong> férias já adquiridas e não gozadas.</li>
+        <li><strong>Férias proporcionais + 1/3:</strong> período incompleto de férias.</li>
+        <li><strong>13º salário proporcional:</strong> valor referente aos meses trabalhados no ano.</li>
+        <li><strong>Aviso prévio indenizado:</strong> pago quando o aviso não é trabalhado.</li>
+      </ul>
+
+      <!-- Descontos -->
+      <h3>Descontos</h3>
+      <p>
+        São valores legalmente deduzidos do total da rescisão.
+      </p>
+      <ul>
+        <li><strong>INSS (previdência):</strong> contribuição obrigatória sobre verbas salariais.</li>
+        <li><strong>IRRF (imposto de renda):</strong> aplicado conforme faixa tributária.</li>
+        <li><strong>Aviso prévio não trabalhado:</strong> pode ser descontado em pedido de demissão.</li>
+      </ul>
+
+      <!-- Verbas variáveis -->
+      <h3>Verbas variáveis</h3>
+      <p>
+        Dependem das condições específicas do contrato de trabalho.
+      </p>
+      <ul>
+        <li><strong>Horas extras:</strong> valores de jornadas adicionais realizadas.</li>
+        <li><strong>Comissões:</strong> remuneração variável por desempenho ou vendas.</li>
+        <li><strong>Adicionais legais:</strong> noturno, insalubridade ou periculosidade.</li>
+      </ul>
+
+      <p>
+        👉 A combinação desses elementos forma o valor final apresentado pela calculadora.
+        Entender essa composição ajuda a verificar a origem de cada valor exibido no resultado.
+      </p>
+    </details>
 
 
+    <details>
+      <summary>
+        ⏱ Prazos legais importantes
+      </summary>
+
+      <p>
+        Após o encerramento do contrato de trabalho, existem prazos legais que devem ser observados
+        tanto pela empresa quanto pelo trabalhador. O cumprimento desses prazos garante o acesso correto
+        às verbas rescisórias e aos benefícios relacionados ao desligamento.
+      </p>
+
+      <div class="alerta-prazos" role="alert">
+        <strong>Pagamento da rescisão:</strong>
+        deve ser realizado em até <strong>10 dias corridos</strong> após o término do contrato de trabalho.
+      </div>
+
+      <h4>Entrega de documentos obrigatórios</h4>
+      <p>
+        A empresa deve fornecer os documentos da rescisão dentro do prazo legal de pagamento,
+        incluindo termo de rescisão, comprovantes de pagamento e documentos para movimentação do FGTS,
+        quando aplicável.
+      </p>
+
+      <h4>Prazo para sacar o FGTS</h4>
+      <p>
+        O saque do FGTS pode ser realizado após a liberação pela empresa e registro do desligamento,
+        conforme as regras aplicáveis ao tipo de rescisão.
+      </p>
+
+      <h4>Prazo para solicitar o seguro-desemprego</h4>
+      <p>
+        O trabalhador deve dar entrada no seguro-desemprego dentro do prazo legal contado a partir
+        da data de desligamento, desde que preencha os requisitos exigidos.
+      </p>
+
+      <p>
+        👉 O descumprimento de prazos pode gerar penalidades ou perda temporária do direito a benefícios.
+      </p>
+
+    </details>
+
+    <details>
+      <summary>
+        📄 Documentos que o trabalhador deve receber
+      </summary>
+
+      <p>
+        Após o encerramento do contrato de trabalho, a empresa deve fornecer os documentos
+        que formalizam a rescisão e permitem o acesso aos direitos do trabalhador.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Termo de Rescisão do Contrato de Trabalho (TRCT):</strong>
+          documento que detalha todas as verbas pagas na rescisão.
+        </li>
+
+        <li>
+          <strong>Chave de conectividade do FGTS:</strong>
+          código que permite movimentar o saldo do FGTS quando o saque é permitido.
+        </li>
+
+        <li>
+          <strong>Guias do seguro-desemprego:</strong>
+          entregues quando o trabalhador tem direito ao benefício.
+        </li>
+
+        <li>
+          <strong>Comprovante de pagamento das verbas rescisórias:</strong>
+          registro do valor pago e da forma de quitação.
+        </li>
+      </ul>
+
+      <p>
+        👉 Guarde todos os documentos da rescisão. Eles são importantes para conferência dos valores e
+        para eventual comprovação de direitos trabalhistas.
+      </p>
+
+    </details>
+
+  </section>
+
+  <footer>
+    
+  </footer>
 
   <dialog class="quadro-erro" id="modalErro">
     <div>

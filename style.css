@@ -310,34 +310,44 @@ select option {
   font-weight: bold;
 }
 
-.descricao::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  
-  /* AJUSTES DE RESPONSIVIDADE*/
-  width: 80vw;
-  max-width: 250px;
-  white-space: normal;
-  word-wrap: break-word;
-  text-align: center;
+  .modelo-de-container-transparente{
+    width: 38rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    color: #fff;
+    background-color: rgba(89, 70, 70, 0.5);
+    padding: 3rem;
+    border-radius: 1rem;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
 
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 13px;
-  opacity: 0;
-  transition: all 0.2s ease;
-  pointer-events: none;
-  z-index: 9999; 
+/* Parte sobre interpretação do resultado e explicações sobre rescisão trabalhista:*/
+
+details{
+  font-size: 1.3rem;
 }
-.descricao:hover::after {
-  opacity: 1;
-  transform: translateX(-50%) scale(1);
+
+details p, li{
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
 }
+
+summary{
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+
+
+
+
+
 
 @media (max-width: 1080px){
   .Sessao-02-resultado{
@@ -412,19 +422,31 @@ select option {
   }
 }
 
-/* Parte sobre interpretação do resultado e explicações sobre rescisão trabalhista:*/
-
-.interpretacao-resultado{
-  width: 38rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  color: #fff;
-  background-color: rgba(132, 102, 102, 0.4);
-  padding: 3rem;
-  border-radius: 1rem;
-  position: relative;
+.descricao::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
   left: 50%;
-  transform: translate(-50%);
-}
+  transform: translateX(-50%) scale(0);
+  
+  /* AJUSTES DE RESPONSIVIDADE*/
+  width: 80vw;
+  max-width: 250px;
+  white-space: normal;
+  word-wrap: break-word;
+  text-align: center;
 
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 9999; 
+}
+.descricao:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
