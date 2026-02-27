@@ -12,14 +12,13 @@ body {
   font-optical-sizing: auto;
   font-weight: weight;
   font-style: normal;
-  /*background-color: rgb(219, 230, 250);*/
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0; /* top:0 right:0 bottom:0 left:0 */
-  background-image: url("fundo.jpg");
+  background-image: url("imagens/fundo.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -193,7 +192,7 @@ select option {
 /*Estilização do resultado exibido para o usuário*/
 
 .Sessao-02-resultado{
-  display: flex;
+  display: none;
   align-items: center;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -343,8 +342,20 @@ summary{
   margin-bottom: 1rem;
 }
 
+/*Footer*/
 
+.links-redes{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  padding-bottom: 1rem;
+  display: flex;
+  gap: 2rem;
+}
 
+.links-redes a{
+    text-decoration: none;
+}
 
 
 
