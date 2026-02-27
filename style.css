@@ -192,7 +192,7 @@ select option {
 /*Estilização do resultado exibido para o usuário*/
 
 .Sessao-02-resultado{
-  display: none;
+  display: flex;
   align-items: center;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -400,7 +400,7 @@ summary{
   }
 
   .Sessao-02-resultado{
-    width: 20rem;
+    width: 20.5rem;
   }
 
   .msgErro{
@@ -419,7 +419,7 @@ summary{
   }
 
   .valores-rescisorios, .valores-descontos, .valores-fgts{
-    width: 18rem;
+    width: 17rem;
   }
 
   .descricao::after {
@@ -430,6 +430,20 @@ summary{
   
   .descricao:hover::after {
     transform: scale(1);
+  }
+
+  .modelo-de-container-transparente{
+    width: 20.5rem;
+    padding: 1.5rem;
+  }
+
+  .modelo-de-container-transparente h2{
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .modelo-de-container-transparente summary{
+    font-size: 1.3rem;
   }
 }
 
