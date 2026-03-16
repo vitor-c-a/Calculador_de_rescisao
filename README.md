@@ -6,4 +6,4 @@ Este projeto é uma aplicação web que realiza o cálculo aproximado de rescis�
 
 📌 Aviso: Os valores apresentados são apenas estimativas. Para resultados exatos e adequados ao seu caso específico, recomenda-se consultar um contador ou profissional de RH.
 
-Em processo...
+Concluído
